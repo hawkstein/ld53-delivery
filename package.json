@@ -1,0 +1,19 @@
+{
+  "name": "ld53-delivery",
+  "version": "0.1.0",
+  "description": "Ludum Dare 53 Entry",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.4",
+    "vite": "^4.3.3"
+  },
+  "dependencies": {
+    "localforage": "^1.10.0",
+    "phaser": "^3.60.0",
+    "xstate": "^4.37.2"
+  }
+}
