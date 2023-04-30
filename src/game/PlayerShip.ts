@@ -1,5 +1,6 @@
 import Phaser from "phaser"
 import MultiKey from "../utils/MultiKey"
+import isMaybeGreater from "../utils/isMaybeGreater"
 
 export default class PlayerShip {
   private sprite: Phaser.Physics.Matter.Sprite
@@ -16,5 +17,16 @@ export default class PlayerShip {
     this.rightInput = new MultiKey(scene, [RIGHT, D])
     this.accelerateInput = new MultiKey(scene, [UP, W])
     this.brakeInput = new MultiKey(scene, [DOWN, S])
+  }
+
+  update() {
+    const rotateRight = this.rightInput.isDown()
+    const rotateLeft = this.leftInput.isDown()
+    const increaseSpeed = this.accelerateInput.isDown()
+    const decreaseSpeed = this.brakeInput.isDown()
+
+    //const moveForce = isOnGround ? 0.005 : 0.0025;
+    //sprite.applyForce(new Phaser.Math.Vector2(-moveForce, 0));
+    this.sprite.setFlipX(isMaybeGreater(this.sprite.body?.velocity?.x, 0))
   }
 }
