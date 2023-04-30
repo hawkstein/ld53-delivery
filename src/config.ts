@@ -10,12 +10,13 @@ export default {
     height: GAME_HEIGHT,
     mode: Phaser.Scale.NONE,
     autoCenter: Phaser.Scale.CENTER_BOTH,
-    zoom: 2,
+    //zoom: 2,
   },
-  pixelArt: true,
+  //pixelArt: true,
   physics: {
     default: "matter",
     matter: {
+      gravity: { x: 0, y: 0 },
       debug: true,
     },
   },
