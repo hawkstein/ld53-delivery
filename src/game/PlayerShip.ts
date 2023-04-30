@@ -1,11 +1,14 @@
 import Phaser from "phaser"
 import MultiKey from "../utils/MultiKey"
+import { Keys, getKey } from "../data"
 
-const ANGULAR_DELTA = 0.02
+const ANGULAR_DELTA_MOVING = 0.02
+const ANGULAR_DELTA_STOPPED = 0.005
 const THRUST = 0.02
 export default class PlayerShip {
   private ship: Phaser.Physics.Matter.Sprite
   private thrust: number
+  private angularDelta: number
   private leftInput: MultiKey
   private rightInput: MultiKey
   private accelerateInput: MultiKey
@@ -17,13 +20,19 @@ export default class PlayerShip {
     this.ship.setMass(100)
     this.ship.setFixedRotation()
     this.thrust = THRUST
+    this.angularDelta = ANGULAR_DELTA_MOVING
 
     const { LEFT, RIGHT, UP, DOWN, A, S, D, W } = Phaser.Input.Keyboard.KeyCodes
 
-    this.leftInput = new MultiKey(scene, [LEFT, A])
-    this.rightInput = new MultiKey(scene, [RIGHT, D])
-    this.accelerateInput = new MultiKey(scene, [UP, W])
-    this.brakeInput = new MultiKey(scene, [DOWN, S])
+    const leftKeys = getKey(Keys.LEFT) || [LEFT, A]
+    const rightKeys = getKey(Keys.RIGHT) || [RIGHT, D]
+    const upKeys = getKey(Keys.UP) || [UP, W]
+    const downKeys = getKey(Keys.DOWN) || [DOWN, S]
+
+    this.leftInput = new MultiKey(scene, leftKeys)
+    this.rightInput = new MultiKey(scene, rightKeys)
+    this.accelerateInput = new MultiKey(scene, upKeys)
+    this.brakeInput = new MultiKey(scene, downKeys)
   }
 
   update() {
@@ -33,15 +42,17 @@ export default class PlayerShip {
     const decreaseSpeed = this.brakeInput.isDown()
 
     if (rotateRight) {
-      this.ship.setAngularVelocity(ANGULAR_DELTA)
+      this.ship.setAngularVelocity(this.angularDelta)
     } else if (rotateLeft) {
-      this.ship.setAngularVelocity(-ANGULAR_DELTA)
+      this.ship.setAngularVelocity(-this.angularDelta)
     }
 
     if (decreaseSpeed) {
       this.thrust = 0
+      this.angularDelta = ANGULAR_DELTA_STOPPED
     } else if (increaseSpeed) {
       this.thrust = THRUST
+      this.angularDelta = ANGULAR_DELTA_MOVING
     }
     this.ship.thrust(this.thrust)
   }

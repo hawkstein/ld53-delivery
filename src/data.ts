@@ -22,12 +22,19 @@ export const Keys = {
 export type Keys = (typeof Keys)[keyof typeof Keys]
 
 type GameData = {
-  keys: Map<Keys, string | string[]>
+  keys: Map<Keys, number | number[]>
   options: Map<Options, boolean | number | string>
 }
 
+const { LEFT, RIGHT, UP, DOWN, A, S, D, W } = Phaser.Input.Keyboard.KeyCodes
+
 const store: GameData = {
-  keys: new Map<Keys, string | string[]>(),
+  keys: new Map<Keys, number | number[]>([
+    [Keys.LEFT, [LEFT, A]],
+    [Keys.RIGHT, [RIGHT, D]],
+    [Keys.UP, [UP, W]],
+    [Keys.DOWN, [DOWN, S]],
+  ]),
   options: new Map<Options, boolean | number | string>(),
 }
 
@@ -53,7 +60,7 @@ function getKey(key: Keys) {
   return store.keys.get(key)
 }
 
-function setKey(key: Keys, value: string | string[]) {
+function setKey(key: Keys, value: number | number[]) {
   store.keys.set(key, value)
 }
 
