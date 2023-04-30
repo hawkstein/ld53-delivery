@@ -13,4 +13,10 @@ export default {
     zoom: 2,
   },
   pixelArt: true,
+  physics: {
+    default: "matter",
+    matter: {
+      debug: true,
+    },
+  },
 }
