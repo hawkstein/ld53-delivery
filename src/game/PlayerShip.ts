@@ -27,6 +27,8 @@ export default class PlayerShip {
     const upKeys = getKey(Keys.UP)
     const downKeys = getKey(Keys.DOWN)
 
+    console.log({ rightKeys, upKeys })
+
     this.leftInput = new MultiKey(scene, leftKeys)
     this.rightInput = new MultiKey(scene, rightKeys)
     this.accelerateInput = new MultiKey(scene, upKeys)

@@ -15,7 +15,7 @@ export type Options = (typeof Options)[keyof typeof Options]
 export const Keys = {
   LEFT: "left",
   RIGHT: "right",
-  UP: "right",
+  UP: "up",
   DOWN: "down",
 } as const
 
