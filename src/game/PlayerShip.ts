@@ -22,12 +22,10 @@ export default class PlayerShip {
     this.thrust = THRUST
     this.angularDelta = ANGULAR_DELTA_MOVING
 
-    const { LEFT, RIGHT, UP, DOWN, A, S, D, W } = Phaser.Input.Keyboard.KeyCodes
-
-    const leftKeys = getKey(Keys.LEFT) || [LEFT, A]
-    const rightKeys = getKey(Keys.RIGHT) || [RIGHT, D]
-    const upKeys = getKey(Keys.UP) || [UP, W]
-    const downKeys = getKey(Keys.DOWN) || [DOWN, S]
+    const leftKeys = getKey(Keys.LEFT)
+    const rightKeys = getKey(Keys.RIGHT)
+    const upKeys = getKey(Keys.UP)
+    const downKeys = getKey(Keys.DOWN)
 
     this.leftInput = new MultiKey(scene, leftKeys)
     this.rightInput = new MultiKey(scene, rightKeys)
