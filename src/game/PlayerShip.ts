@@ -1,10 +1,8 @@
 import Phaser from "phaser"
 import MultiKey from "../utils/MultiKey"
-// import isMaybeGreater from "../utils/isMaybeGreater"
 
 const ANGULAR_DELTA = 0.02
-const ACCELERATE_DELTA = 0.02
-const BRAKE_DELTA = 0.01
+const THRUST = 0.02
 export default class PlayerShip {
   private ship: Phaser.Physics.Matter.Sprite
   private thrust: number
@@ -18,9 +16,10 @@ export default class PlayerShip {
     this.ship.setFrictionAir(0.05)
     this.ship.setMass(100)
     this.ship.setFixedRotation()
-    this.thrust = 0.02
+    this.thrust = THRUST
 
     const { LEFT, RIGHT, UP, DOWN, A, S, D, W } = Phaser.Input.Keyboard.KeyCodes
+
     this.leftInput = new MultiKey(scene, [LEFT, A])
     this.rightInput = new MultiKey(scene, [RIGHT, D])
     this.accelerateInput = new MultiKey(scene, [UP, W])
@@ -39,22 +38,11 @@ export default class PlayerShip {
       this.ship.setAngularVelocity(-ANGULAR_DELTA)
     }
 
-    // const velocity = new Phaser.Math.Vector2(
-    //   this.ship.getVelocity().x,
-    //   this.ship.getVelocity().y
-    // )
-
-    if (decreaseSpeed && this.thrust > 0) {
-      // this.thrust -= BRAKE_DELTA
-      // if (this.thrust < 0) {
-      //   this.thrust = 0
-      // }
+    if (decreaseSpeed) {
       this.thrust = 0
-    } else if (increaseSpeed && this.thrust < 0.1) {
-      //this.thrust += ACCELERATE_DELTA
-      this.thrust = 0.02
+    } else if (increaseSpeed) {
+      this.thrust = THRUST
     }
-    //this.thrust = Math.max(0, (this.thrust -= BRAKE_DELTA))
     this.ship.thrust(this.thrust)
   }
 }
