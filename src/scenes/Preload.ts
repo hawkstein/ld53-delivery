@@ -25,7 +25,7 @@ export default class Preload extends Phaser.Scene {
       }
     )
     message.setOrigin(0.5, 0.8)
-    //this.load.pack({ key: "preload", url: "assets/pack.json" });
+    this.load.pack({ key: "preload", url: "assets/pack.json" })
   }
 
   create() {

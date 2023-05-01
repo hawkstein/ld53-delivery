@@ -1,0 +1,41 @@
+{
+	"textures": [
+		{
+			"image": "atlas.png",
+			"format": "RGBA8888",
+			"size": {
+				"w": 65,
+				"h": 64
+			},
+			"scale": 1,
+			"frames": [
+				{
+					"filename": "PlayerShip.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 64,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 1,
+						"y": 1,
+						"w": 63,
+						"h": 62
+					},
+					"frame": {
+						"x": 1,
+						"y": 1,
+						"w": 63,
+						"h": 62
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "https://www.codeandweb.com/texturepacker",
+		"version": "3.0",
+		"smartupdate": "$TexturePacker:SmartUpdate:cf38362a6e4bd11a55d4738bbe14ea9d:1491d273f954603271c606c288190cba:cbce6b53f0f49e0bf15173c25c41f876$"
+	}
+}
