@@ -4,7 +4,7 @@
 			"image": "atlas.png",
 			"format": "RGBA8888",
 			"size": {
-				"w": 68,
+				"w": 83,
 				"h": 64
 			},
 			"scale": 1,
@@ -31,6 +31,27 @@
 					}
 				},
 				{
+					"filename": "Rune.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 16,
+						"h": 16
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 16,
+						"h": 16
+					},
+					"frame": {
+						"x": 66,
+						"y": 1,
+						"w": 16,
+						"h": 16
+					}
+				},
+				{
 					"filename": "WindParticle.png",
 					"rotated": false,
 					"trimmed": false,
@@ -46,7 +67,7 @@
 					},
 					"frame": {
 						"x": 66,
-						"y": 1,
+						"y": 19,
 						"w": 1,
 						"h": 16
 					}
@@ -57,6 +78,6 @@
 	"meta": {
 		"app": "https://www.codeandweb.com/texturepacker",
 		"version": "3.0",
-		"smartupdate": "$TexturePacker:SmartUpdate:2f8743e4f0daddd79b1c911b0c39af38:e7ddba83bc07d19020366446ffcf94ce:cbce6b53f0f49e0bf15173c25c41f876$"
+		"smartupdate": "$TexturePacker:SmartUpdate:08806e353996d18540c9085def63f869:5a0089ce563baf25af8b35a6dcc628f5:cbce6b53f0f49e0bf15173c25c41f876$"
 	}
 }

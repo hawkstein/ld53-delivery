@@ -43,12 +43,28 @@ export default class Game extends Phaser.Scene implements GameScene {
     this.windZone = new WindZone(this)
     this.pickRandomWindRedirection()
     this.castSpell = new MultiKey(this, getKey(Keys.ACTION))
+
+    this.addRandomRunes()
   }
 
   pickRandomWindRedirection() {
     const direction = Phaser.Utils.Array.GetRandom(this.directions)
     this.windZone?.updateDirection(direction)
     this.ship?.setWindAngle(direction.angle)
+  }
+
+  addRandomRunes() {
+    const cameraView = new Phaser.Geom.Rectangle(
+      -this.cameras.main.width,
+      -this.cameras.main.height,
+      this.cameras.main.width * 3,
+      this.cameras.main.height * 3
+    )
+
+    for (let i = 0; i < 40; i++) {
+      const p = cameraView.getRandomPoint()
+      this.add.sprite(p.x, p.y, "atlas", "Rune.png")
+    }
   }
 
   update() {
