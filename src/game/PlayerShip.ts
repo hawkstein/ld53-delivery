@@ -57,12 +57,12 @@ export default class PlayerShip {
     const adjustedThrust =
       this.thrust + this.thrust * (Math.floor(180 - difference) / 180)
     this.ship.thrust(adjustedThrust)
-
     // Finally apply the force from the wind
+    const radians = Phaser.Math.DegToRad(this.windAngle)
     const windSpeed = THRUST / 2
     const force = new Phaser.Math.Vector2({
-      x: Math.cos(this.windAngle) * windSpeed,
-      y: Math.sin(this.windAngle) * windSpeed,
+      x: Math.cos(radians) * windSpeed,
+      y: Math.sin(radians) * windSpeed,
     })
     this.ship.applyForce(force)
   }
