@@ -1,6 +1,7 @@
 import Phaser from "phaser"
 import MultiKey from "../utils/MultiKey"
 import { Keys, getKey } from "../data"
+import { WindDirection } from "../scenes/Game"
 
 const ANGULAR_DELTA_MOVING = 0.02
 const ANGULAR_DELTA_STOPPED = 0.005
@@ -13,6 +14,7 @@ export default class PlayerShip {
   private steerRight: MultiKey
   private increaseThrust: MultiKey
   private stopThrust: MultiKey
+  private windAngle: number = 0
 
   constructor(scene: Phaser.Scene, x: number, y: number) {
     this.ship = scene.matter.add.sprite(x, y, "atlas", "PlayerShip.png")
@@ -46,6 +48,26 @@ export default class PlayerShip {
       this.ship.setAngularVelocity(-this.angularDelta)
     }
 
-    this.ship.thrust(this.thrust)
+    // The idea here is that the player can apply more thrust when
+    // they have the wind behind them and less when facing into it
+    // I have very little concept of how accurate this is in reality!
+    const difference = Math.abs(
+      Phaser.Math.Angle.ShortestBetween(this.ship.angle, this.windAngle)
+    )
+    const adjustedThrust =
+      this.thrust + this.thrust * (Math.floor(180 - difference) / 180)
+    this.ship.thrust(adjustedThrust)
+
+    // Finally apply the force from the wind
+    const windSpeed = THRUST / 2
+    const force = new Phaser.Math.Vector2({
+      x: Math.cos(this.windAngle) * windSpeed,
+      y: Math.sin(this.windAngle) * windSpeed,
+    })
+    this.ship.applyForce(force)
+  }
+
+  updateDirection({ angle }: WindDirection) {
+    this.windAngle = angle
   }
 }
