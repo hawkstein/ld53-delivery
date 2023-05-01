@@ -4,7 +4,7 @@
 			"image": "atlas.png",
 			"format": "RGBA8888",
 			"size": {
-				"w": 65,
+				"w": 68,
 				"h": 64
 			},
 			"scale": 1,
@@ -29,6 +29,27 @@
 						"w": 63,
 						"h": 62
 					}
+				},
+				{
+					"filename": "WindParticle.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 1,
+						"h": 16
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 1,
+						"h": 16
+					},
+					"frame": {
+						"x": 66,
+						"y": 1,
+						"w": 1,
+						"h": 16
+					}
 				}
 			]
 		}
@@ -36,6 +57,6 @@
 	"meta": {
 		"app": "https://www.codeandweb.com/texturepacker",
 		"version": "3.0",
-		"smartupdate": "$TexturePacker:SmartUpdate:cf38362a6e4bd11a55d4738bbe14ea9d:1491d273f954603271c606c288190cba:cbce6b53f0f49e0bf15173c25c41f876$"
+		"smartupdate": "$TexturePacker:SmartUpdate:2f8743e4f0daddd79b1c911b0c39af38:e7ddba83bc07d19020366446ffcf94ce:cbce6b53f0f49e0bf15173c25c41f876$"
 	}
 }

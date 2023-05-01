@@ -17,6 +17,7 @@ export const Keys = {
   RIGHT: "right",
   UP: "up",
   DOWN: "down",
+  ACTION: "action",
 } as const
 
 export type Keys = (typeof Keys)[keyof typeof Keys]
@@ -26,7 +27,8 @@ type GameData = {
   options: Map<Options, boolean | number | string>
 }
 
-const { LEFT, RIGHT, UP, DOWN, A, S, D, W } = Phaser.Input.Keyboard.KeyCodes
+const { LEFT, RIGHT, UP, DOWN, A, S, D, W, SPACE, SHIFT } =
+  Phaser.Input.Keyboard.KeyCodes
 
 const store: GameData = {
   keys: {
@@ -34,6 +36,7 @@ const store: GameData = {
     [Keys.RIGHT]: [RIGHT, D],
     [Keys.UP]: [UP, W],
     [Keys.DOWN]: [DOWN, S],
+    [Keys.ACTION]: [SPACE, SHIFT],
   },
   options: new Map<Options, boolean | number | string>(),
 }
