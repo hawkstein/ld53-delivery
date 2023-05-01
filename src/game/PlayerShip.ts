@@ -9,10 +9,10 @@ export default class PlayerShip {
   private ship: Phaser.Physics.Matter.Sprite
   private thrust: number
   private angularDelta: number
-  private leftInput: MultiKey
-  private rightInput: MultiKey
-  private accelerateInput: MultiKey
-  private brakeInput: MultiKey
+  private steerLeft: MultiKey
+  private steerRight: MultiKey
+  private increaseThrust: MultiKey
+  private stopThrust: MultiKey
 
   constructor(scene: Phaser.Scene, x: number, y: number) {
     this.ship = scene.matter.add.sprite(x, y, "atlas", "PlayerShip.png")
@@ -22,36 +22,30 @@ export default class PlayerShip {
     this.thrust = THRUST
     this.angularDelta = ANGULAR_DELTA_MOVING
 
-    const leftKeys = getKey(Keys.LEFT)
-    const rightKeys = getKey(Keys.RIGHT)
-    const upKeys = getKey(Keys.UP)
-    const downKeys = getKey(Keys.DOWN)
-
-    this.leftInput = new MultiKey(scene, leftKeys)
-    this.rightInput = new MultiKey(scene, rightKeys)
-    this.accelerateInput = new MultiKey(scene, upKeys)
-    this.brakeInput = new MultiKey(scene, downKeys)
+    this.steerLeft = new MultiKey(scene, getKey(Keys.LEFT))
+    this.steerRight = new MultiKey(scene, getKey(Keys.RIGHT))
+    this.increaseThrust = new MultiKey(scene, getKey(Keys.UP))
+    this.stopThrust = new MultiKey(scene, getKey(Keys.DOWN))
   }
 
   update() {
-    const rotateRight = this.rightInput.isDown()
-    const rotateLeft = this.leftInput.isDown()
-    const increaseSpeed = this.accelerateInput.isDown()
-    const decreaseSpeed = this.brakeInput.isDown()
-
-    if (rotateRight) {
-      this.ship.setAngularVelocity(this.angularDelta)
-    } else if (rotateLeft) {
-      this.ship.setAngularVelocity(-this.angularDelta)
-    }
-
-    if (decreaseSpeed) {
+    // Intention with angularDelta is to be closer to boat movement
+    // i.e. forward movement means you can turn
+    // However, not being able to move at all when stopped would be boring
+    if (this.stopThrust.isDown()) {
       this.thrust = 0
       this.angularDelta = ANGULAR_DELTA_STOPPED
-    } else if (increaseSpeed) {
+    } else if (this.increaseThrust.isDown()) {
       this.thrust = THRUST
       this.angularDelta = ANGULAR_DELTA_MOVING
     }
+
+    if (this.steerRight.isDown()) {
+      this.ship.setAngularVelocity(this.angularDelta)
+    } else if (this.steerLeft.isDown()) {
+      this.ship.setAngularVelocity(-this.angularDelta)
+    }
+
     this.ship.thrust(this.thrust)
   }
 }
