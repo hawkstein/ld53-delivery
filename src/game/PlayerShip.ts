@@ -1,6 +1,7 @@
 import Phaser from "phaser"
 import MultiKey from "../utils/MultiKey"
 import { Keys, getKey } from "../data"
+import { GAME_BOUNDS_HEIGHT, GAME_BOUNDS_WIDTH } from "../constants"
 
 const ANGULAR_DELTA_MOVING = 0.02
 const ANGULAR_DELTA_STOPPED = 0.005
@@ -14,6 +15,7 @@ export default class PlayerShip {
   private increaseThrust: MultiKey
   private stopThrust: MultiKey
   private windAngle: number = 0
+  private resettingPosition: boolean = false
 
   constructor(scene: Phaser.Scene, x: number, y: number) {
     this.sprite = scene.matter.add.sprite(x, y, "atlas", "PlayerShip.png")
@@ -30,6 +32,15 @@ export default class PlayerShip {
   }
 
   update() {
+    if (
+      !this.resettingPosition &&
+      (this.sprite.x < 0 ||
+        this.sprite.x > GAME_BOUNDS_WIDTH ||
+        this.sprite.y < 0 ||
+        this.sprite.y > GAME_BOUNDS_HEIGHT)
+    ) {
+      this.resetPosition()
+    }
     // Intention with angularDelta is to be closer to boat movement
     // i.e. forward movement means you can turn
     // However, not being able to move at all when stopped would be boring
@@ -69,5 +80,21 @@ export default class PlayerShip {
 
   setWindAngle(angle: number) {
     this.windAngle = angle
+  }
+
+  resetPosition() {
+    this.resettingPosition = true
+    this.thrust = 0
+    this.angularDelta = ANGULAR_DELTA_STOPPED
+    this.sprite.alpha = 0
+    this.sprite.scene.time.addEvent({
+      delay: 2000,
+      callback: () => {
+        this.resettingPosition = false
+        this.sprite.alpha = 1
+        this.sprite.x = GAME_BOUNDS_WIDTH / 2
+        this.sprite.y = GAME_BOUNDS_HEIGHT / 2
+      },
+    })
   }
 }
