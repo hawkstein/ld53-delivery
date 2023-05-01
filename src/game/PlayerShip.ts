@@ -15,6 +15,7 @@ export default class PlayerShip {
   private increaseThrust: MultiKey
   private stopThrust: MultiKey
   private windAngle: number = 0
+  private resettingPosition: boolean = false
 
   constructor(scene: Phaser.Scene, x: number, y: number) {
     this.sprite = scene.matter.add.sprite(x, y, "atlas", "PlayerShip.png")
@@ -32,10 +33,11 @@ export default class PlayerShip {
 
   update() {
     if (
-      this.sprite.x < 0 ||
-      this.sprite.x > GAME_BOUNDS_WIDTH ||
-      this.sprite.y < 0 ||
-      this.sprite.y > GAME_BOUNDS_HEIGHT
+      !this.resettingPosition &&
+      (this.sprite.x < 0 ||
+        this.sprite.x > GAME_BOUNDS_WIDTH ||
+        this.sprite.y < 0 ||
+        this.sprite.y > GAME_BOUNDS_HEIGHT)
     ) {
       this.resetPosition()
     }
@@ -81,12 +83,14 @@ export default class PlayerShip {
   }
 
   resetPosition() {
+    this.resettingPosition = true
     this.thrust = 0
     this.angularDelta = ANGULAR_DELTA_STOPPED
     this.sprite.alpha = 0
     this.sprite.scene.time.addEvent({
       delay: 2000,
       callback: () => {
+        this.resettingPosition = false
         this.sprite.alpha = 1
         this.sprite.x = GAME_BOUNDS_WIDTH / 2
         this.sprite.y = GAME_BOUNDS_HEIGHT / 2
