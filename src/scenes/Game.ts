@@ -5,6 +5,7 @@ import WindZone from "../game/WindZone"
 import MultiKey from "../utils/MultiKey"
 import { Keys, getKey } from "../data"
 import { GAME_BOUNDS_HEIGHT, GAME_BOUNDS_WIDTH } from "../constants"
+import CastingCircle from "../game/CastingCircle"
 
 export type WindDirection = {
   rotate: number
@@ -23,6 +24,7 @@ export default class Game extends Phaser.Scene implements GameScene {
   private directions: WindDirection[]
   private castSpell?: MultiKey
   private canSpellcast: boolean
+  private castingCircle?: CastingCircle
 
   constructor() {
     super(Scenes.GAME)
@@ -51,6 +53,8 @@ export default class Game extends Phaser.Scene implements GameScene {
 
     this.addRandomRunes()
 
+    this.castingCircle = new CastingCircle(this)
+
     this.cameras.main.setBounds(0, 0, GAME_BOUNDS_WIDTH, GAME_BOUNDS_HEIGHT)
     this.cameras.main.startFollow(this.ship.sprite, false, 0.5, 0.5)
   }
@@ -77,11 +81,12 @@ export default class Game extends Phaser.Scene implements GameScene {
 
   update() {
     if (this.castSpell?.isDown() && this.canSpellcast) {
-      this.pickRandomWindRedirection()
       this.canSpellcast = false
+      this.castingCircle?.startSpellcast()
       this.time.addEvent({
-        delay: 1000,
+        delay: 2000,
         callback: () => {
+          this.pickRandomWindRedirection()
           this.canSpellcast = true
         },
       })
