@@ -4,6 +4,7 @@ import PlayerShip from "../game/PlayerShip"
 import WindZone from "../game/WindZone"
 import MultiKey from "../utils/MultiKey"
 import { Keys, getKey } from "../data"
+import { GAME_BOUNDS_HEIGHT, GAME_BOUNDS_WIDTH } from "../constants"
 
 export type WindDirection = {
   rotate: number
@@ -39,14 +40,18 @@ export default class Game extends Phaser.Scene implements GameScene {
   }
 
   create() {
-    this.ship = new PlayerShip(this, 100, 100)
+    this.ship = new PlayerShip(
+      this,
+      GAME_BOUNDS_WIDTH / 2,
+      GAME_BOUNDS_HEIGHT / 2
+    )
     this.windZone = new WindZone(this)
     this.pickRandomWindRedirection()
     this.castSpell = new MultiKey(this, getKey(Keys.ACTION))
 
     this.addRandomRunes()
 
-    this.cameras.main.setBounds(-1000, -1000, 3000, 3000)
+    this.cameras.main.setBounds(0, 0, GAME_BOUNDS_WIDTH, GAME_BOUNDS_HEIGHT)
     this.cameras.main.startFollow(this.ship.sprite, false, 0.5, 0.5)
   }
 
@@ -58,10 +63,10 @@ export default class Game extends Phaser.Scene implements GameScene {
 
   addRandomRunes() {
     const cameraView = new Phaser.Geom.Rectangle(
-      -this.cameras.main.width,
-      -this.cameras.main.height,
-      this.cameras.main.width * 3,
-      this.cameras.main.height * 3
+      0,
+      0,
+      GAME_BOUNDS_WIDTH,
+      GAME_BOUNDS_HEIGHT
     )
 
     for (let i = 0; i < 40; i++) {
