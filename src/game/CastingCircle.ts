@@ -28,38 +28,11 @@ export default class CastingCircle {
     this.circle = this.scene.add.sprite(0, 0, "atlas", "CastingCircle.png")
     this.circle.alpha = 0
 
-    // this.nodes = [
-    //   {
-    //     sprite: this.scene.add.sprite(0, 0, "atlas", "CastNorth.png"),
-    //     offsetX: 0,
-    //     offsetY: -50,
-    //   },
-    //   {
-    //     sprite: this.scene.add.sprite(0, 0, "atlas", "CastNorth.png"),
-    //     offsetX: 30,
-    //     offsetY: -25,
-    //   },
-    //   {
-    //     sprite: this.scene.add.sprite(0, 0, "atlas", "CastNorth.png"),
-    //     offsetX: 50,
-    //     offsetY: 0,
-    //   },
-    //   {
-    //     sprite: this.scene.add.sprite(0, 0, "atlas", "CastNorth.png"),
-    //     offsetX: 30,
-    //     offsetY: 25,
-    //   },
-    //   {
-    //     sprite: this.scene.add.sprite(0, 0, "atlas", "CastNorth.png"),
-    //     offsetX: 0,
-    //     offsetY: 50,
-    //   },
-    // ]
     const segment = (2 * Math.PI) / 8
     this.nodes = Array.from({ length: 8 }).map((_, index) => ({
       sprite: this.scene.add.sprite(0, 0, "atlas", "CastNorth.png"),
-      offsetX: 50 * Math.cos(segment * index),
-      offsetY: 50 * Math.sin(segment * index),
+      offsetX: 80 * Math.cos(segment * index),
+      offsetY: 80 * Math.sin(segment * index),
     }))
     this.hideNodes()
   }
