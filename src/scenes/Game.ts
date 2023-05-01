@@ -10,8 +10,13 @@ export type WindDirection = {
   angle: number
 }
 
-export default class Game extends Phaser.Scene {
-  private ship?: PlayerShip
+export interface GameScene extends Phaser.Scene {
+  ship?: PlayerShip
+}
+
+export default class Game extends Phaser.Scene implements GameScene {
+  public ship?: PlayerShip
+  private windZone?: WindZone
   private directions: WindDirection[]
 
   constructor() {
@@ -30,10 +35,10 @@ export default class Game extends Phaser.Scene {
 
   create() {
     this.ship = new PlayerShip(this, 100, 100)
-    const wind = new WindZone(this, this.ship.ship)
+    this.windZone = new WindZone(this)
     const direction = Phaser.Utils.Array.GetRandom(this.directions)
-    wind.updateDirection(direction)
-    this.ship.updateDirection(direction)
+    this.windZone.updateDirection(direction)
+    this.ship.setWindAngle(direction.angle)
   }
 
   update() {

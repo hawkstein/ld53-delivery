@@ -1,14 +1,13 @@
 import Phaser from "phaser"
-import type { WindDirection } from "../scenes/Game"
+import type { GameScene, WindDirection } from "../scenes/Game"
 
 export default class WindZone {
+  private scene: GameScene
   private emitter: Phaser.GameObjects.Particles.ParticleEmitter | undefined
-
-  private scene: Phaser.Scene
-  private playerShip: Phaser.Physics.Matter.Sprite
-  constructor(scene: Phaser.Scene, playerShip: Phaser.Physics.Matter.Sprite) {
+  private shipSprite?: Phaser.Physics.Matter.Sprite
+  constructor(scene: GameScene) {
     this.scene = scene
-    this.playerShip = playerShip
+    this.shipSprite = this.scene.ship?.sprite
   }
 
   updateDirection({ rotate, speedX, speedY }: WindDirection) {
@@ -31,7 +30,7 @@ export default class WindZone {
       rotate,
       speedX,
       speedY,
-      follow: this.playerShip,
+      follow: this.shipSprite,
       followOffset: {
         x: -this.scene.cameras.main.width * 0.5,
         y: -this.scene.cameras.main.height * 0.5,
