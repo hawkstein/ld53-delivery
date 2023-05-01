@@ -45,6 +45,9 @@ export default class Game extends Phaser.Scene implements GameScene {
     this.castSpell = new MultiKey(this, getKey(Keys.ACTION))
 
     this.addRandomRunes()
+
+    this.cameras.main.setBounds(-1000, -1000, 3000, 3000)
+    this.cameras.main.startFollow(this.ship.sprite, false, 0.5, 0.5)
   }
 
   pickRandomWindRedirection() {
