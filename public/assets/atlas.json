@@ -4,11 +4,32 @@
 			"image": "atlas.png",
 			"format": "RGBA8888",
 			"size": {
-				"w": 83,
-				"h": 64
+				"w": 100,
+				"h": 211
 			},
 			"scale": 1,
 			"frames": [
+				{
+					"filename": "CastingCircle.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 100,
+						"h": 100
+					},
+					"spriteSourceSize": {
+						"x": 3,
+						"y": 3,
+						"w": 95,
+						"h": 95
+					},
+					"frame": {
+						"x": 1,
+						"y": 1,
+						"w": 95,
+						"h": 95
+					}
+				},
 				{
 					"filename": "PlayerShip.png",
 					"rotated": false,
@@ -25,9 +46,51 @@
 					},
 					"frame": {
 						"x": 1,
-						"y": 1,
+						"y": 98,
 						"w": 63,
 						"h": 62
+					}
+				},
+				{
+					"filename": "CastNorth.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 48,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 48,
+						"h": 48
+					},
+					"frame": {
+						"x": 1,
+						"y": 162,
+						"w": 48,
+						"h": 48
+					}
+				},
+				{
+					"filename": "CastNorthActive.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 48,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 48,
+						"h": 48
+					},
+					"frame": {
+						"x": 51,
+						"y": 162,
+						"w": 48,
+						"h": 48
 					}
 				},
 				{
@@ -46,7 +109,7 @@
 					},
 					"frame": {
 						"x": 66,
-						"y": 1,
+						"y": 98,
 						"w": 16,
 						"h": 16
 					}
@@ -66,8 +129,8 @@
 						"h": 16
 					},
 					"frame": {
-						"x": 66,
-						"y": 19,
+						"x": 84,
+						"y": 98,
 						"w": 1,
 						"h": 16
 					}
@@ -78,6 +141,6 @@
 	"meta": {
 		"app": "https://www.codeandweb.com/texturepacker",
 		"version": "3.0",
-		"smartupdate": "$TexturePacker:SmartUpdate:08806e353996d18540c9085def63f869:5a0089ce563baf25af8b35a6dcc628f5:cbce6b53f0f49e0bf15173c25c41f876$"
+		"smartupdate": "$TexturePacker:SmartUpdate:f1a5dc52f138a7dd8825e79d61f43b8c:ddfaba2cbb2687f02c6bdcf748746f5c:cbce6b53f0f49e0bf15173c25c41f876$"
 	}
 }
