@@ -30,7 +30,7 @@ export default class Game extends Phaser.Scene {
 
   create() {
     this.ship = new PlayerShip(this, 100, 100)
-    const wind = new WindZone(this)
+    const wind = new WindZone(this, this.ship.ship)
     const direction = Phaser.Utils.Array.GetRandom(this.directions)
     wind.updateDirection(direction)
     this.ship.updateDirection(direction)

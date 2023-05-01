@@ -7,7 +7,7 @@ const ANGULAR_DELTA_MOVING = 0.02
 const ANGULAR_DELTA_STOPPED = 0.005
 const THRUST = 0.02
 export default class PlayerShip {
-  private ship: Phaser.Physics.Matter.Sprite
+  public ship: Phaser.Physics.Matter.Sprite
   private thrust: number
   private angularDelta: number
   private steerLeft: MultiKey
