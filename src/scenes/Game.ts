@@ -5,7 +5,8 @@ import WindZone from "../game/WindZone"
 import MultiKey from "../utils/MultiKey"
 import { Keys, getKey } from "../data"
 import { GAME_BOUNDS_HEIGHT, GAME_BOUNDS_WIDTH } from "../constants"
-import CastingCircle from "../game/CastingCircle"
+import CastingCircle, { CircleEvent } from "../game/CastingCircle"
+import StrengthMeter from "../game/StrengthMeter"
 
 export type WindDirection = {
   rotate: number
@@ -23,22 +24,22 @@ export default class Game extends Phaser.Scene implements GameScene {
   private windZone?: WindZone
   private directions: WindDirection[]
   private castSpell?: MultiKey
-  private canSpellcast: boolean
+  private canInput: boolean = true
   private castingCircle?: CastingCircle
+  private strengthMeter?: StrengthMeter
 
   constructor() {
     super(Scenes.GAME)
     this.directions = [
-      { rotate: 0, speedX: 0, speedY: 300, angle: 90 },
-      { rotate: 0, speedX: 0, speedY: -300, angle: -90 },
-      { rotate: 90, speedX: 300, speedY: 0, angle: 0 },
-      { rotate: 90, speedX: -300, speedY: 0, angle: -180 },
-      { rotate: -45, speedX: 300, speedY: 300, angle: 45 },
-      { rotate: -45, speedX: -300, speedY: -300, angle: -135 },
-      { rotate: 45, speedX: 300, speedY: -300, angle: -45 },
-      { rotate: 45, speedX: -300, speedY: 300, angle: 135 },
+      { rotate: 90, speedX: 300, speedY: 0, angle: 0 }, //E
+      { rotate: -45, speedX: 300, speedY: 300, angle: 45 }, //SE
+      { rotate: 0, speedX: 0, speedY: 300, angle: 90 }, // S
+      { rotate: 45, speedX: -300, speedY: 300, angle: 135 }, // SW
+      { rotate: 90, speedX: -300, speedY: 0, angle: -180 }, // W
+      { rotate: -45, speedX: -300, speedY: -300, angle: -135 }, //NW
+      { rotate: 0, speedX: 0, speedY: -300, angle: -90 }, // N
+      { rotate: 45, speedX: 300, speedY: -300, angle: -45 }, // NE
     ]
-    this.canSpellcast = true
   }
 
   create() {
@@ -54,6 +55,13 @@ export default class Game extends Phaser.Scene implements GameScene {
     this.addRandomRunes()
 
     this.castingCircle = new CastingCircle(this)
+    this.castingCircle.on(
+      CircleEvent.CAST,
+      ({ direction }: { direction: number }) => {
+        this.setWindDirection(direction)
+      }
+    )
+    this.strengthMeter = new StrengthMeter()
 
     this.cameras.main.setBounds(0, 0, GAME_BOUNDS_WIDTH, GAME_BOUNDS_HEIGHT)
     this.cameras.main.startFollow(this.ship.sprite, false, 0.5, 0.5)
@@ -63,6 +71,14 @@ export default class Game extends Phaser.Scene implements GameScene {
     const direction = Phaser.Utils.Array.GetRandom(this.directions)
     this.windZone?.updateDirection(direction)
     this.ship?.setWindAngle(direction.angle)
+  }
+
+  setWindDirection(index: number) {
+    const direction = this.directions[index]
+    if (direction) {
+      this.windZone?.updateDirection(direction)
+      this.ship?.setWindAngle(direction.angle)
+    }
   }
 
   addRandomRunes() {
@@ -80,16 +96,19 @@ export default class Game extends Phaser.Scene implements GameScene {
   }
 
   update() {
-    if (this.castSpell?.isDown() && this.canSpellcast) {
-      this.canSpellcast = false
-      this.castingCircle?.startSpellcast()
+    if (this.castSpell?.isDown() && this.canInput) {
+      this.canInput = false
       this.time.addEvent({
-        delay: 2000,
+        delay: 200,
         callback: () => {
-          this.pickRandomWindRedirection()
-          this.canSpellcast = true
+          this.canInput = true
         },
       })
+      if (!this.castingCircle?.casting) {
+        this.castingCircle?.startSpellcast()
+      } else {
+        this.castingCircle?.handleInput()
+      }
     }
     this.ship?.update()
   }
