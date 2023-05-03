@@ -62,7 +62,7 @@ export default class CastingCircle extends Phaser.Events.EventEmitter {
         this.stopSpellcast()
       },
     })
-    this.direction = 0 //Phaser.Math.Between(0, this.nodes.length - 1)
+    this.direction = Phaser.Math.Between(0, this.nodes.length - 1)
     this.spin = Math.random() > 0.5 ? -1 : 1
     this.nodes[this.direction].sprite.setTexture("atlas", "CastNorthActive.png")
     this.selectionTimer = this.scene.time.addEvent({

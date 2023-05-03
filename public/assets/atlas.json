@@ -4,8 +4,8 @@
 			"image": "atlas.png",
 			"format": "RGBA8888",
 			"size": {
-				"w": 100,
-				"h": 211
+				"w": 226,
+				"h": 102
 			},
 			"scale": 1,
 			"frames": [
@@ -45,8 +45,8 @@
 						"h": 62
 					},
 					"frame": {
-						"x": 1,
-						"y": 98,
+						"x": 98,
+						"y": 1,
 						"w": 63,
 						"h": 62
 					}
@@ -66,10 +66,31 @@
 						"h": 48
 					},
 					"frame": {
-						"x": 1,
-						"y": 162,
+						"x": 163,
+						"y": 1,
 						"w": 48,
 						"h": 48
+					}
+				},
+				{
+					"filename": "MeterBackground.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 12,
+						"h": 100
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 12,
+						"h": 100
+					},
+					"frame": {
+						"x": 213,
+						"y": 1,
+						"w": 12,
+						"h": 100
 					}
 				},
 				{
@@ -87,8 +108,8 @@
 						"h": 48
 					},
 					"frame": {
-						"x": 51,
-						"y": 162,
+						"x": 163,
+						"y": 51,
 						"w": 48,
 						"h": 48
 					}
@@ -108,8 +129,8 @@
 						"h": 16
 					},
 					"frame": {
-						"x": 66,
-						"y": 98,
+						"x": 98,
+						"y": 65,
 						"w": 16,
 						"h": 16
 					}
@@ -129,10 +150,31 @@
 						"h": 16
 					},
 					"frame": {
-						"x": 84,
-						"y": 98,
+						"x": 116,
+						"y": 65,
 						"w": 1,
 						"h": 16
+					}
+				},
+				{
+					"filename": "MeterMark.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 12,
+						"h": 4
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 12,
+						"h": 4
+					},
+					"frame": {
+						"x": 98,
+						"y": 83,
+						"w": 12,
+						"h": 4
 					}
 				}
 			]
@@ -141,6 +183,6 @@
 	"meta": {
 		"app": "https://www.codeandweb.com/texturepacker",
 		"version": "3.0",
-		"smartupdate": "$TexturePacker:SmartUpdate:eb38138021fa2b76f50ab470559724bc:991de0e6b1f9bb7c3197ccbdc4023e4f:cbce6b53f0f49e0bf15173c25c41f876$"
+		"smartupdate": "$TexturePacker:SmartUpdate:bd41845c36677b9dd96136c263573648:b8cd30a2c4fcd5575187e9da4a55aa15:cbce6b53f0f49e0bf15173c25c41f876$"
 	}
 }

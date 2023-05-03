@@ -6,7 +6,7 @@ import MultiKey from "../utils/MultiKey"
 import { Keys, getKey } from "../data"
 import { GAME_BOUNDS_HEIGHT, GAME_BOUNDS_WIDTH } from "../constants"
 import CastingCircle, { CircleEvent } from "../game/CastingCircle"
-import StrengthMeter from "../game/StrengthMeter"
+import StrengthMeter, { MeterEvent } from "../game/StrengthMeter"
 
 export type WindDirection = {
   rotate: number
@@ -27,6 +27,7 @@ export default class Game extends Phaser.Scene implements GameScene {
   private canInput: boolean = true
   private castingCircle?: CastingCircle
   private strengthMeter?: StrengthMeter
+  private castDirection: number = 0
 
   constructor() {
     super(Scenes.GAME)
@@ -58,10 +59,16 @@ export default class Game extends Phaser.Scene implements GameScene {
     this.castingCircle.on(
       CircleEvent.CAST,
       ({ direction }: { direction: number }) => {
-        this.setWindDirection(direction)
+        this.castDirection = direction
+        this.strengthMeter?.start()
       }
     )
-    this.strengthMeter = new StrengthMeter()
+    this.strengthMeter = new StrengthMeter(this)
+    this.strengthMeter.setFollowTarget(this.ship.sprite)
+    this.strengthMeter.on(MeterEvent.SELECTION, (strength: number) => {
+      this.setWindDirection(this.castDirection)
+      console.log({ strength })
+    })
 
     this.cameras.main.setBounds(0, 0, GAME_BOUNDS_WIDTH, GAME_BOUNDS_HEIGHT)
     this.cameras.main.startFollow(this.ship.sprite, false, 0.5, 0.5)
